@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package bstream;
+
+option go_package = "../stream";
+
+import "google/protobuf/timestamp.proto";
+
+
+service BStreamService {
+  rpc SendMsg(stream MsgRequest) returns (stream MsgReply){};
+}
+
+message MsgRequest {
+  string  message = 1;
+}
+
+message MsgReply {
+  string message = 1;
+  google.protobuf.Timestamp TS = 2;
+  MsgType message_type = 3;
+
+  enum MsgType {
+    CONNECT_SUCCESS = 0;
+    CONNECT_FAILED = 1;
+    NORMAL_MESSAGE = 2;
+  }
+}

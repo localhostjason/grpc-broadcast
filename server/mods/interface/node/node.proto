@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package node;
+
+option go_package = "../node";
+
+
+message Address  {
+  string Ip = 1;
+  string Hostname = 2;
+}
+
+message System  {
+  string Architecture = 1;
+  int64 Cpu = 2;
+  string Os = 3;
+  int64 Memory = 4;
+  string Kernel = 5;
+}
+
+message Software  {
+  string Name = 1;
+  string Version = 2;
+
+}
+
+//message 对应  生成的代码中的struct
+message NodeRequest  {
+  string NodeId = 1;
+  Address  Address = 2;
+  System System = 3;
+  repeated Software Software = 4;
+}
+
+message NodeResponse {
+  string Code = 1;
+  string Desc = 2;
+  string Message = 3;
+}
+
+service NodeInfoService {
+  rpc GetNodeInfo(NodeRequest) returns (NodeResponse){}
+}
