@@ -4,6 +4,7 @@ import (
 	"agent/biz/bstream"
 	"agent/mods/client"
 	"agent/mods/db"
+	"agent/mods/logger"
 	"agent/mods/svc"
 	"errors"
 	"os"
@@ -26,7 +27,7 @@ func NewProc(singleMode bool) *MainProc {
 }
 
 func (m *MainProc) Run(svc *svc.Svc) {
-	if err := startAgent(); err != nil {
+	if err := startAgent(true); err != nil {
 		return
 	}
 
@@ -51,15 +52,20 @@ func (m *MainProc) handleSigTerm(sig os.Signal) (err error) {
 	return errors.New("quit by signal " + sig.String())
 }
 
-func startAgent() error {
-	if err := db.Connect(); err != nil {
+func startAgent(toConsole bool) error {
+	err := logger.SetLogConfig(toConsole)
+	if err != nil {
+		log.Fatalln("failed to set log:", err)
+	}
+
+	if err = db.Connect(); err != nil {
 		log.Fatalln(err)
 	}
-	if err := db.InitData(); err != nil {
+	if err = db.InitData(); err != nil {
 		log.Fatalln(err)
 	}
 
-	if err := client.Connect(); err != nil {
+	if err = client.Connect(); err != nil {
 		log.Fatalln(err)
 	}
 	return nil

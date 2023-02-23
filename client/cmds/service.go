@@ -24,7 +24,7 @@ func RunService(singleMode bool, cmd string) {
 		}
 	}()
 
-	s, err := createService(true)
+	s, err := createService(singleMode)
 	if err != nil {
 		log.Fatalln("failed to start", err)
 	}

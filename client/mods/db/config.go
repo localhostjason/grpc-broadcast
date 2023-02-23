@@ -1,6 +1,6 @@
 package db
 
-import config "agent/mods/configx"
+import config "agent/mods/config"
 
 const _key = "db"
 

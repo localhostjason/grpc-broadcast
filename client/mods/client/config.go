@@ -1,6 +1,6 @@
 package client
 
-import "agent/mods/configx"
+import "agent/mods/config"
 
 const _key = "server"
 

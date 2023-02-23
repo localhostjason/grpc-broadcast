@@ -1,7 +1,7 @@
 package cmds
 
 import (
-	config "agent/mods/configx"
+	"agent/mods/config"
 	"flag"
 	"fmt"
 )
