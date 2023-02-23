@@ -4,15 +4,11 @@ import (
 	"console/biz/rpc/bstream"
 	"console/biz/rpc/node"
 	"console/biz/view"
-	"console/mods/casbinx"
-	"github.com/localhostjason/webserver/daemonx"
 	"google.golang.org/grpc"
 )
 
 func Run() {
-	s := daemonx.NewMainServer()
-
-	s.LoadPluginHandler(casbinx.NewCasBin().Run)
+	s := NewMainServer()
 	s.LoadView(view.SetView)
 
 	s.LoadGrpcServerApi(func(server *grpc.Server) {
